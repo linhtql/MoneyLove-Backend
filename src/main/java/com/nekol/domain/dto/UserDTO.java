@@ -1,14 +1,15 @@
 package com.nekol.domain.dto;
 
+import com.nekol.domain.entity.User;
 import com.nekol.payload.request.RegisterRequest;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 
 @Data
 @ToString
@@ -20,14 +21,18 @@ public class UserDTO implements UserDetails {
     private String email;
     private String fullName;
 
+    public UserDTO () {
+
+    }
+
     public UserDTO (RegisterRequest request) {
         username = request.getUsername();
         password = request.getPassword();
-    }
 
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+        return Arrays.asList(() -> "read");
     }
 
     @Override

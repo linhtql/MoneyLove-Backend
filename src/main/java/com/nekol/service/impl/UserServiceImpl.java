@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Slf4j
@@ -22,7 +23,6 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-
     private final UserMapper userMapper;
 
     @Override
@@ -44,10 +44,16 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userOptional = userRepository.findByUsername(username);
+        log.debug("USER SERVICE loadUserByUsername");
 
+        Optional<User> userOptional = userRepository.findByUsername(username);
+////
         return userOptional.map(userMapper::toDTO).orElse(null);
+
+
     }
 }
+

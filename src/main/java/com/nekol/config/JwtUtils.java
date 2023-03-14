@@ -58,7 +58,6 @@ public class JwtUtils {
     private String createToken(UserDTO user) {
         return Jwts.builder()
                 .setSubject(user.getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
                 .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSigningKey)))
                 .claim("userId", user.getId())
