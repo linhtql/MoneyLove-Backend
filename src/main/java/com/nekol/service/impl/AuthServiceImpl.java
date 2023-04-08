@@ -2,6 +2,7 @@ package com.nekol.service.impl;
 
 import com.nekol.config.JwtUtils;
 import com.nekol.domain.dto.UserDTO;
+import com.nekol.domain.enumeration.AlertMessage;
 import com.nekol.payload.request.LoginRequest;
 import com.nekol.payload.request.RegisterRequest;
 import com.nekol.payload.response.JwtResponse;
@@ -38,6 +39,8 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         UserDTO userDTO = (UserDTO) authentication.getPrincipal();
+        userDTO.setLoggedIn(true);
+        userDTO = userService.update(userDTO);
 
         return new JwtResponse(
                 jwtUtils.generateToken(userDTO),
@@ -52,5 +55,15 @@ public class AuthServiceImpl implements AuthService {
         request.setPassword(passwordEncoder.encode(request.getPassword()));
 
         return userService.create(request);
+    }
+
+    @Override
+    public MessageResponse logoutUser() {
+        log.debug("AUTH SERVICE logoutUser");
+
+        UserDTO userDTO = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userDTO.setLoggedIn(false);
+        userService.update(userDTO);
+        return new MessageResponse(AlertMessage.LOGOUT_SUCCESSFUL.getMessage());
     }
 }

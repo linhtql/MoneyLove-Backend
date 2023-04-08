@@ -9,5 +9,6 @@ public interface AuthService {
 
     JwtResponse authenticateUser(LoginRequest request);
     MessageResponse registerUser(RegisterRequest request);
+    MessageResponse logoutUser();
 
 }

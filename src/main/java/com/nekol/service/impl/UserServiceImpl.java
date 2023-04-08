@@ -44,6 +44,14 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+    @Override
+    public UserDTO update(UserDTO userDTO) {
+        log.debug("USER SERVICE update");
+        User user = userMapper.toEntity(userDTO);
+
+        return userMapper.toDTO(userRepository.save(user));
+    }
+
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

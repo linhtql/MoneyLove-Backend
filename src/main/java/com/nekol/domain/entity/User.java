@@ -2,9 +2,8 @@ package com.nekol.domain.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -15,7 +14,15 @@ public class User extends Base {
     private String username;
     @Column(nullable = false)
     private String password;
+    @Column(unique = true)
     private String email;
     private String fullName;
+    private boolean isLoggedIn;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private Set<Category> categories;
+
+
 
 }

@@ -20,6 +20,7 @@ public class UserDTO implements UserDetails {
     private String password;
     private String email;
     private String fullName;
+    private boolean isLoggedIn;
 
     public UserDTO () {
 
@@ -28,6 +29,7 @@ public class UserDTO implements UserDetails {
     public UserDTO (RegisterRequest request) {
         username = request.getUsername();
         password = request.getPassword();
+        isLoggedIn = false;
 
     }
     @Override
