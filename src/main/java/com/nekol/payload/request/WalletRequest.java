@@ -1,14 +1,12 @@
 package com.nekol.payload.request;
 
-import com.nekol.domain.entity.Transaction;
-import com.nekol.domain.entity.User;
 import lombok.Data;
 
 @Data
-public class CategoryRequest {
+public class WalletRequest {
 
     private String name;
     private String icon;
+    private Double amount;
     private String color;
-    private Long parent_id;
 }

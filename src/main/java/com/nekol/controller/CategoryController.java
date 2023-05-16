@@ -1,11 +1,12 @@
 package com.nekol.controller;
 
-import com.nekol.payload.request.CreateCategoryRequest;
-import com.nekol.payload.request.RegisterRequest;
+import com.nekol.payload.request.CategoryRequest;
 import com.nekol.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.xml.ws.Response;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,14 +15,28 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+
     @PostMapping
-    ResponseEntity<?> create(@RequestBody CreateCategoryRequest request) {
+    ResponseEntity<?> create(@RequestBody CategoryRequest request) {
         return ResponseEntity.ok().body(categoryService.create(request));
     }
 
-    @GetMapping
-    ResponseEntity<?> get() {
-        return ResponseEntity.ok().body("test");
+    @GetMapping("/{type}")
+    ResponseEntity<?> getCategory(@PathVariable String type) {
+        if (type.equals("out-come")) {
+            return ResponseEntity.ok().body(categoryService.getByOutCome());
+        }
+        return null;
     }
 
+    @PutMapping("/{id}")
+    ResponseEntity<?> update(@RequestBody CategoryRequest request, @PathVariable Long id) {
+        return ResponseEntity.ok().body(categoryService.update(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> delete(@PathVariable Long id) {
+        categoryService.delete(id);
+        return ResponseEntity.ok().body("Delete category successfully!");
+    }
 }

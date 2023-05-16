@@ -1,14 +1,18 @@
 package com.nekol.domain.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.websocket.OnError;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @Entity
-@Table(name = "user")
-public class User extends Base {
+public class User extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -19,9 +23,11 @@ public class User extends Base {
     private String fullName;
     private boolean isLoggedIn;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy = "user")
     private Set<Category> categories;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Wallet> wallets;
 
 
 

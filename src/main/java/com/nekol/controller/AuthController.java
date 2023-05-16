@@ -17,7 +17,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok()
@@ -32,8 +31,5 @@ public class AuthController {
     public ResponseEntity<?> logout() {
         return ResponseEntity.ok().body(authService.logoutUser());
     }
-
-
-
 
 }

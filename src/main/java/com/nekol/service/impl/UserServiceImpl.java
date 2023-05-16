@@ -52,6 +52,13 @@ public class UserServiceImpl implements UserService {
         return userMapper.toDTO(userRepository.save(user));
     }
 
+    @Override
+    public UserDTO retrieveById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        return userOptional.map(userMapper::toDTO).orElse(null);
+    }
+
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

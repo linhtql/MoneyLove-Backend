@@ -9,4 +9,5 @@ public interface UserService extends UserDetailsService {
 
     MessageResponse create(RegisterRequest request);
     UserDTO update(UserDTO userDTO);
+    UserDTO retrieveById(Long id);
 }

@@ -1,6 +1,8 @@
 package com.nekol.domain.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -12,8 +14,9 @@ import java.util.Date;
 
 @MappedSuperclass
 @EntityListeners({AuditingEntityListener.class})
-@Data
-public abstract class Base {
+@Getter
+@Setter
+public abstract class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,32 +1,33 @@
 package com.nekol.domain.dto;
 
-import com.nekol.domain.entity.Category;
-import com.nekol.payload.request.CategoryRequest;
-import lombok.*;
+import com.nekol.payload.request.WalletRequest;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-public class CategoryDTO {
+public class WalletDTO {
 
     private Long id;
     private String name;
     private String icon;
+    private Double amount;
     private String color;
     private UserDTO userDTO;
-    private Category categoryParent;
 
-    public CategoryDTO(CategoryRequest request) {
+    public WalletDTO(WalletRequest request) {
         name = request.getName();
         icon = request.getIcon();
+        amount = request.getAmount();
         color = request.getColor();
     }
 
-    public CategoryDTO(Long id, String name, String icon, String color) {
-        this.id = id;
+    public WalletDTO(String name, String icon, Double amount, String color) {
         this.name = name;
         this.icon = icon;
+        this.amount = amount;
         this.color = color;
     }
+
 
 }
