@@ -14,11 +14,22 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     Boolean existsByName(String name);
 
-    @Query("select new com.nekol.domain.dto.CategoryDTO (c.id, c.name, c.icon, c.color) from Category c where c.categoryParent.id = :categoryParent and c.user.id = :userId")
-    List<CategoryDTO> getCategory(@Param("categoryParent") Long categoryId, @Param("userId") Long userid);
+    @Query("select new com.nekol.domain.dto.CategoryDTO (c.id, c.name, c.icon, c.color) from Category c where c.categoryParent.id = :categoryParent and (c.user.id = :userIdAdmin or c.user.id = :userIdUser)")
+    List<CategoryDTO> getCategory(@Param("categoryParent") Long categoryId, @Param("userIdAdmin") Long userIdAdmin, @Param("userIdUser") Long userIdUser);
     Category findByName(String name);
 
     @Query("select c.id from Category c where c.categoryParent.name = :type")
     List<Long> getCategoryByType(@Param("type") String type);
+
+    @Query("select c.name, sum(t.price) as total from Transaction t " +
+            "join Wallet w on t.wallet.id = w.id " +
+            "join User u on u.id = w.user.id " +
+            "join Category c on c.id = t.category.id " +
+            "where u.id = :userId and c.categoryParent.id = :categoryParent " +
+            "group by c.name")
+    List<Object[]> statistic(@Param("userId") Long userId, @Param("categoryParent") Long categoryParent);
+
+    @Query("select new com.nekol.domain.dto.CategoryDTO (c.id, c.name, c.icon, c.color) from Category c where c.categoryParent.id = :categoryParent and c.user.id = :userIdUser")
+    List<CategoryDTO> getCategoryByUserAndType(@Param("categoryParent") Long categoryId,  @Param("userIdUser") Long userIdUser);
 
 }

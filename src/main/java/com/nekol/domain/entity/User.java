@@ -12,9 +12,11 @@ import java.util.Set;
 @Setter
 @Getter
 @Entity
-public class User extends BaseEntity {
+public class User{
 
-    @Column(nullable = false, unique = true)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
     private String username;
     @Column(nullable = false)
     private String password;

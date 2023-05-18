@@ -18,8 +18,7 @@ public class Category extends BaseEntity {
     private String name;
     private String icon;
     private String color;
-//    @Column(nullable = false)
-//    private int typeCategory;
+
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryParent", referencedColumnName = "id")

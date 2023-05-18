@@ -26,7 +26,12 @@ public class CategoryController {
         if (type.equals("out-come")) {
             return ResponseEntity.ok().body(categoryService.getByOutCome());
         }
-        return null;
+        return ResponseEntity.ok().body(categoryService.getByInCome());
+    }
+
+    @GetMapping("/update/{type}")
+    ResponseEntity<?> getCategoryUserAndType(@PathVariable String type) {
+        return ResponseEntity.ok().body(categoryService.getUpdate(type));
     }
 
     @PutMapping("/{id}")
