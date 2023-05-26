@@ -17,14 +17,25 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-    @GetMapping("/outcome")
-    public ResponseEntity<?> retrieveOutcome() {
-        return ResponseEntity.ok().body(transactionService.retrieveOutcome());
+    @GetMapping("/detail")
+    public ResponseEntity<?> detail() {
+        return ResponseEntity.ok().body(transactionService.detail());
     }
 
     @PostMapping("/addTransaction")
     public ResponseEntity<?> addTransaction(@RequestBody TransactionRequest request) {
         return ResponseEntity.ok().body(transactionService.addTransaction(request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        transactionService.delete(id);
+        return ResponseEntity.ok().body("Delete transaction successfully!");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody TransactionRequest request) {
+        return ResponseEntity.ok().body(transactionService.updateTransaction(id, request));
     }
 
 

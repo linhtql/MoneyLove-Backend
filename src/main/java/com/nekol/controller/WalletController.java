@@ -34,9 +34,9 @@ public class WalletController {
         return ResponseEntity.ok().body(walletService.updateWallet(request, id));
     }
 
-    @GetMapping("/delete/{id}")
-    public ResponseEntity<?> deleteWallet(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> delete(@PathVariable Long id) {
         walletService.deleteWallet(id);
-        return ResponseEntity.ok().body("Delete successfully!");
+        return ResponseEntity.ok().body("Delete category successfully!");
     }
 }

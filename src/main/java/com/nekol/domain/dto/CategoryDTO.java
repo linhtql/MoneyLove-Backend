@@ -29,4 +29,5 @@ public class CategoryDTO {
         this.color = color;
     }
 
+
 }

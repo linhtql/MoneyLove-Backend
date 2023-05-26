@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface WalletRepository extends JpaRepository<Wallet, Long> {
 
-    @Query("SELECT new com.nekol.domain.dto.WalletDTO(name, icon, amount, color) FROM Wallet WHERE user.id = :userID")
+    @Query("SELECT new com.nekol.domain.dto.WalletDTO(id, name, icon, amount, color) FROM Wallet WHERE user.id = :userID")
     List<WalletDTO> retrieveAllByUser(@Param("userID") Long userId);
 
 

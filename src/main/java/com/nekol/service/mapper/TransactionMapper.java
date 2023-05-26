@@ -18,4 +18,18 @@ public class TransactionMapper {
 
         return entity;
     }
+
+    public TransactionDTO toDTO(Transaction entity) {
+        TransactionDTO dto = new TransactionDTO();
+        dto.setId(entity.getId());
+        dto.setCategory(entity.getCategory());
+        dto.setWallet(entity.getWallet());
+        dto.setCode(entity.getCode());
+        dto.setNote(entity.getNote());
+        dto.setPrice(entity.getPrice());
+
+        return dto;
+    }
+
+
 }

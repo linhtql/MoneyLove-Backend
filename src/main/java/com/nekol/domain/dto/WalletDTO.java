@@ -22,7 +22,8 @@ public class WalletDTO {
         color = request.getColor();
     }
 
-    public WalletDTO(String name, String icon, Double amount, String color) {
+    public WalletDTO(Long id, String name, String icon, Double amount, String color) {
+        this.id = id;
         this.name = name;
         this.icon = icon;
         this.amount = amount;

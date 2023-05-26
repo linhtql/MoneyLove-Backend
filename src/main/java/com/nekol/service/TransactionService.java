@@ -11,4 +11,8 @@ public interface TransactionService {
 
     MessageResponse addTransaction(TransactionRequest request);
     MessageResponse detail();
+
+    void delete(Long id);
+
+    MessageResponse updateTransaction(Long id, TransactionRequest request);
 }
