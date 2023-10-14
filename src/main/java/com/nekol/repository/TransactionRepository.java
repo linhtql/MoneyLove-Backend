@@ -13,7 +13,7 @@ import java.util.List;
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
         @Query("select new com.nekol.domain.dto.TransactionDTO(t.id, c.id,c.name, c.icon, c.color,  t.note,  t.price, t.lastModifiedDate, u.username) from Category c join Transaction t on t.category.id = c.id " +
-                "join User u on u.id = c.user.id " +
+                "join Wallet w on w.id = t.wallet.id join User u on u.id = w.user.id " +
                 "where u.id = :userId")
     List<TransactionDTO> getTransactionByMonth(@Param("userId") Long userId);
 
